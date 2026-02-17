@@ -17,7 +17,8 @@ defmodule JobApplicationsWeb.Router do
   scope "/", JobApplicationsWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", JobOfferController, :index
+    resources "/job_offers", JobOfferController
   end
 
   # Other scopes may use custom stacks.

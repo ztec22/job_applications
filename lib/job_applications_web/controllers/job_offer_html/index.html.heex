@@ -1,0 +1,39 @@
+<Layouts.app flash={@flash}>
+  <.header>
+    Listing Job offers
+    <:actions>
+      <.button href={~p"/job_offers/new"}>
+        <.icon name="hero-plus" /> New Job offer
+      </.button>
+    </:actions>
+  </.header>
+
+  <div class="w-full overflow-x-auto">
+    <.table id="job_offers" rows={@job_offers} row_click={&JS.navigate(~p"/job_offers/#{&1}")}>
+      <:col :let={job_offer} label="Application date">{job_offer.application_date}</:col>
+      <:col :let={job_offer} label="Company">{job_offer.company}</:col>
+      <:col :let={job_offer} label="Job title">{job_offer.job_title}</:col>
+      <:col :let={job_offer} label="Working model">{job_offer.working_model}</:col>
+      <:col :let={job_offer} label="Job description">{job_offer.job_description}</:col>
+      <:col :let={job_offer} label="Sector">{job_offer.sector}</:col>
+      <:col :let={job_offer} label="Experience">{job_offer.experience}</:col>
+      <:col :let={job_offer} label="Salary range">{job_offer.salary_range}</:col>
+      <:col :let={job_offer} label="Requested salary">{job_offer.requested_salary}</:col>
+      <:col :let={job_offer} label="Status">{job_offer.status}</:col>
+      <:col :let={job_offer} label="Response date">{job_offer.response_date}</:col>
+      <:col :let={job_offer} label="Response">{job_offer.response}</:col>
+      <:col :let={job_offer} label="Observation">{job_offer.observation}</:col>
+      <:action :let={job_offer}>
+        <div class="sr-only">
+          <.link navigate={~p"/job_offers/#{job_offer}"}>Show</.link>
+        </div>
+        <.link navigate={~p"/job_offers/#{job_offer}/edit"}>Edit</.link>
+      </:action>
+      <:action :let={job_offer}>
+        <.link href={~p"/job_offers/#{job_offer}"} method="delete" data-confirm="Are you sure?">
+          Delete
+        </.link>
+      </:action>
+    </.table>
+  </div>
+</Layouts.app>

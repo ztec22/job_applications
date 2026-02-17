@@ -1,0 +1,30 @@
+<Layouts.app flash={@flash}>
+  <.header>
+    Job offer {@job_offer.id}
+    <:subtitle>This is a job_offer record from your database.</:subtitle>
+    <:actions>
+      <.button navigate={~p"/job_offers"}>
+        <.icon name="hero-arrow-left" />
+      </.button>
+      <.button variant="primary" navigate={~p"/job_offers/#{@job_offer}/edit?return_to=show"}>
+        <.icon name="hero-pencil-square" /> Edit job_offer
+      </.button>
+    </:actions>
+  </.header>
+
+  <.list>
+    <:item title="Application date">{@job_offer.application_date}</:item>
+    <:item title="Company">{@job_offer.company}</:item>
+    <:item title="Job title">{@job_offer.job_title}</:item>
+    <:item title="Working model">{@job_offer.working_model}</:item>
+    <:item title="Job description">{@job_offer.job_description}</:item>
+    <:item title="Sector">{@job_offer.sector}</:item>
+    <:item title="Experience">{@job_offer.experience}</:item>
+    <:item title="Salary range">{@job_offer.salary_range}</:item>
+    <:item title="Requested salary">{@job_offer.requested_salary}</:item>
+    <:item title="Status">{@job_offer.status}</:item>
+    <:item title="Response date">{@job_offer.response_date}</:item>
+    <:item title="Response">{@job_offer.response}</:item>
+    <:item title="Observation">{@job_offer.observation}</:item>
+  </.list>
+</Layouts.app>

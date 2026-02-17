@@ -1,0 +1,8 @@
+<Layouts.app flash={@flash}>
+  <.header>
+    Edit Job offer {@job_offer.id}
+    <:subtitle>Use this form to manage job_offer records in your database.</:subtitle>
+  </.header>
+
+  <.job_offer_form changeset={@changeset} action={~p"/job_offers/#{@job_offer}"} return_to={~p"/job_offers"} />
+</Layouts.app>

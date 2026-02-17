@@ -1,0 +1,19 @@
+<.form :let={f} for={@changeset} action={@action}>
+  <.input field={f[:application_date]} type="date" label="Application date" />
+  <.input field={f[:company]} type="text" label="Company" />
+  <.input field={f[:job_title]} type="text" label="Job title" />
+  <.input field={f[:working_model]} type="text" label="Working model" />
+  <.input field={f[:job_description]} type="text" label="Job description" />
+  <.input field={f[:sector]} type="text" label="Sector" />
+  <.input field={f[:experience]} type="text" label="Experience" />
+  <.input field={f[:salary_range]} type="text" label="Salary range" />
+  <.input field={f[:requested_salary]} type="number" label="Requested salary" />
+  <.input field={f[:status]} type="text" label="Status" />
+  <.input field={f[:response_date]} type="date" label="Response date" />
+  <.input field={f[:response]} type="text" label="Response" />
+  <.input field={f[:observation]} type="text" label="Observation" />
+  <footer>
+    <.button variant="primary">Save Job offer</.button>
+    <.button :if={@return_to} href={@return_to}>Cancel</.button>
+  </footer>
+</.form>
