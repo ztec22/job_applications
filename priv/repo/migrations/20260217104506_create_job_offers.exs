@@ -11,7 +11,7 @@ defmodule JobApplications.Repo.Migrations.CreateJobOffers do
       add :sector, :string
       add :experience, :string
       add :salary_range, :string
-      add :requested_salary, :integer
+      add :requested_salary, :string
       add :status, :string
       add :response_date, :date
       add :response, :string

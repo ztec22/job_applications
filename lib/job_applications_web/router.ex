@@ -18,6 +18,8 @@ defmodule JobApplicationsWeb.Router do
     pipe_through :browser
 
     get "/", JobOfferController, :index
+    post "/upload_file", JobOfferController, :upload_file
+    delete "/job_offers", JobOfferController, :delete_all
     resources "/job_offers", JobOfferController
   end
 

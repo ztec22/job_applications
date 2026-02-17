@@ -1,6 +1,7 @@
 <Layouts.app flash={@flash}>
   <.header>
-    Listing Job offers
+    Listing Job offers (<%= length(@job_offers) %>)
+    <.upload_file />
     <:actions>
       <.button href={~p"/job_offers/new"}>
         <.icon name="hero-plus" /> New Job offer
@@ -36,4 +37,7 @@
       </:action>
     </.table>
   </div>
+  <.button href={~p"/job_offers"} method="delete" data-confirm="Are you sure?">
+    Delete all
+  </.button>
 </Layouts.app>

@@ -11,7 +11,7 @@ defmodule JobApplications.JobOffers.JobOffer do
     field :sector, :string
     field :experience, :string
     field :salary_range, :string
-    field :requested_salary, :integer
+    field :requested_salary, :string
     field :status, :string
     field :response_date, :date
     field :response, :string
@@ -24,6 +24,6 @@ defmodule JobApplications.JobOffers.JobOffer do
   def changeset(job_offer, attrs) do
     job_offer
     |> cast(attrs, [:application_date, :company, :job_title, :working_model, :job_description, :sector, :experience, :salary_range, :requested_salary, :status, :response_date, :response, :observation])
-    |> validate_required([:application_date, :company, :job_title, :working_model, :job_description, :sector, :experience, :salary_range, :requested_salary, :status, :response_date, :response, :observation])
+    |> validate_required([:application_date, :company, :job_title])
   end
 end

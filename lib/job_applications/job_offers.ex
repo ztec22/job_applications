@@ -18,7 +18,7 @@ defmodule JobApplications.JobOffers do
 
   """
   def list_job_offers do
-    Repo.all(JobOffer)
+    Repo.all(from jf in JobOffer, order_by: [desc: jf.application_date])
   end
 
   @doc """
@@ -87,6 +87,13 @@ defmodule JobApplications.JobOffers do
   """
   def delete_job_offer(%JobOffer{} = job_offer) do
     Repo.delete(job_offer)
+  end
+
+  @doc """
+  Deletes all job_offers.
+  """
+  def delete_all_job_offers() do
+    Repo.delete_all(JobOffer)
   end
 
   @doc """
