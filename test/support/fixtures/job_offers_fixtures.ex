@@ -17,7 +17,7 @@ defmodule JobApplications.JobOffersFixtures do
         job_description: "some job_description",
         job_title: "some job_title",
         observation: "some observation",
-        requested_salary: 42,
+        requested_salary: "some requested_salary",
         response: "some response",
         response_date: ~D[2026-02-16],
         salary_range: "some salary_range",

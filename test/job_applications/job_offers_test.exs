@@ -21,7 +21,7 @@ defmodule JobApplications.JobOffersTest do
     end
 
     test "create_job_offer/1 with valid data creates a job_offer" do
-      valid_attrs = %{status: "some status", response: "some response", application_date: ~D[2026-02-16], company: "some company", job_title: "some job_title", working_model: "some working_model", job_description: "some job_description", sector: "some sector", experience: "some experience", salary_range: "some salary_range", requested_salary: 42, response_date: ~D[2026-02-16], observation: "some observation"}
+      valid_attrs = %{status: "some status", response: "some response", application_date: ~D[2026-02-16], company: "some company", job_title: "some job_title", working_model: "some working_model", job_description: "some job_description", sector: "some sector", experience: "some experience", salary_range: "some salary_range", requested_salary: "some requested_salary", response_date: ~D[2026-02-16], observation: "some observation"}
 
       assert {:ok, %JobOffer{} = job_offer} = JobOffers.create_job_offer(valid_attrs)
       assert job_offer.status == "some status"
@@ -34,7 +34,7 @@ defmodule JobApplications.JobOffersTest do
       assert job_offer.sector == "some sector"
       assert job_offer.experience == "some experience"
       assert job_offer.salary_range == "some salary_range"
-      assert job_offer.requested_salary == 42
+      assert job_offer.requested_salary == "some requested_salary"
       assert job_offer.response_date == ~D[2026-02-16]
       assert job_offer.observation == "some observation"
     end
@@ -45,7 +45,7 @@ defmodule JobApplications.JobOffersTest do
 
     test "update_job_offer/2 with valid data updates the job_offer" do
       job_offer = job_offer_fixture()
-      update_attrs = %{status: "some updated status", response: "some updated response", application_date: ~D[2026-02-17], company: "some updated company", job_title: "some updated job_title", working_model: "some updated working_model", job_description: "some updated job_description", sector: "some updated sector", experience: "some updated experience", salary_range: "some updated salary_range", requested_salary: 43, response_date: ~D[2026-02-17], observation: "some updated observation"}
+      update_attrs = %{status: "some updated status", response: "some updated response", application_date: ~D[2026-02-17], company: "some updated company", job_title: "some updated job_title", working_model: "some updated working_model", job_description: "some updated job_description", sector: "some updated sector", experience: "some updated experience", salary_range: "some updated salary_range", requested_salary: "some requested_salary", response_date: ~D[2026-02-17], observation: "some updated observation"}
 
       assert {:ok, %JobOffer{} = job_offer} = JobOffers.update_job_offer(job_offer, update_attrs)
       assert job_offer.status == "some updated status"
@@ -58,7 +58,7 @@ defmodule JobApplications.JobOffersTest do
       assert job_offer.sector == "some updated sector"
       assert job_offer.experience == "some updated experience"
       assert job_offer.salary_range == "some updated salary_range"
-      assert job_offer.requested_salary == 43
+      assert job_offer.requested_salary == "some requested_salary"
       assert job_offer.response_date == ~D[2026-02-17]
       assert job_offer.observation == "some updated observation"
     end

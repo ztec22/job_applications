@@ -3,8 +3,8 @@ defmodule JobApplicationsWeb.JobOfferControllerTest do
 
   import JobApplications.JobOffersFixtures
 
-  @create_attrs %{status: "some status", response: "some response", application_date: ~D[2026-02-16], company: "some company", job_title: "some job_title", working_model: "some working_model", job_description: "some job_description", sector: "some sector", experience: "some experience", salary_range: "some salary_range", requested_salary: 42, response_date: ~D[2026-02-16], observation: "some observation"}
-  @update_attrs %{status: "some updated status", response: "some updated response", application_date: ~D[2026-02-17], company: "some updated company", job_title: "some updated job_title", working_model: "some updated working_model", job_description: "some updated job_description", sector: "some updated sector", experience: "some updated experience", salary_range: "some updated salary_range", requested_salary: 43, response_date: ~D[2026-02-17], observation: "some updated observation"}
+  @create_attrs %{status: "some status", response: "some response", application_date: ~D[2026-02-16], company: "some company", job_title: "some job_title", working_model: "some working_model", job_description: "some job_description", sector: "some sector", experience: "some experience", salary_range: "some salary_range", requested_salary: "some requested_salary", response_date: ~D[2026-02-16], observation: "some observation"}
+  @update_attrs %{status: "some updated status", response: "some updated response", application_date: ~D[2026-02-17], company: "some updated company", job_title: "some updated job_title", working_model: "some updated working_model", job_description: "some updated job_description", sector: "some updated sector", experience: "some updated experience", salary_range: "some updated salary_range", requested_salary: "some requested_salary", response_date: ~D[2026-02-17], observation: "some updated observation"}
   @invalid_attrs %{status: nil, response: nil, application_date: nil, company: nil, job_title: nil, working_model: nil, job_description: nil, sector: nil, experience: nil, salary_range: nil, requested_salary: nil, response_date: nil, observation: nil}
 
   describe "index" do
@@ -74,6 +74,16 @@ defmodule JobApplicationsWeb.JobOfferControllerTest do
       assert_error_sent 404, fn ->
         get(conn, ~p"/job_offers/#{job_offer}")
       end
+    end
+  end
+
+  describe "delete all job_offers" do
+    setup [:create_job_offer]
+
+    test "deletes all job_offers", %{conn: conn} do
+      conn = delete(conn, ~p"/job_offers")
+      assert redirected_to(conn) == ~p"/job_offers"
+
     end
   end
 
