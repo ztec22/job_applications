@@ -1,7 +1,6 @@
 <Layouts.app flash={@flash}>
   <.header>
     Job offer {@job_offer.id}
-    <:subtitle>This is a job_offer record from your database.</:subtitle>
     <:actions>
       <.button navigate={~p"/job_offers"}>
         <.icon name="hero-arrow-left" />
@@ -12,19 +11,73 @@
     </:actions>
   </.header>
 
-  <.list>
-    <:item title="Application date">{@job_offer.application_date}</:item>
-    <:item title="Company">{@job_offer.company}</:item>
-    <:item title="Job title">{@job_offer.job_title}</:item>
-    <:item title="Working model">{@job_offer.working_model}</:item>
-    <:item title="Job description">{@job_offer.job_description}</:item>
-    <:item title="Sector">{@job_offer.sector}</:item>
-    <:item title="Experience">{@job_offer.experience}</:item>
-    <:item title="Salary range">{@job_offer.salary_range}</:item>
-    <:item title="Requested salary">{@job_offer.requested_salary}</:item>
-    <:item title="Status">{@job_offer.status}</:item>
-    <:item title="Response date">{@job_offer.response_date}</:item>
-    <:item title="Response">{@job_offer.response}</:item>
-    <:item title="Observation">{@job_offer.observation}</:item>
-  </.list>
+  
+  <div class="content-center mb-10">
+    <span class="mr-5"><b>Application date:</b> {@job_offer.application_date}</span>
+    <span><b>Status: </b> {@job_offer.status}</span>
+  </div>
+  <hr class="border-t border-gray-300 my-4">
+
+  <div class="text-left flex-col justify-start">
+      <div class="flex">
+        <span class="flex-1 font-bold">Company</span>
+        <span class="flex-1">{@job_offer.company}</span>
+      </div>
+      <div class="flex">
+        <span class="flex-1 font-bold">Job title</span>
+        <span class="flex-1">{@job_offer.job_title}</span>
+      </div>
+      <hr class="border-t border-gray-300 my-4">
+  </div>
+
+  <div class="text-left flex-col justify-start">
+      <div class="flex">
+        <span class="flex-1 font-bold">Working model</span>
+        <span class="flex-1">{@job_offer.working_model}</span>
+      </div>
+      <div class="flex">
+        <span class="flex-1 font-bold">Sector</span>
+        <span class="flex-1">{@job_offer.sector}</span>
+      </div>
+      <div class="flex">
+        <span class="flex-1 font-bold">Job description</span>
+        <span class="flex-1">{@job_offer.job_description}</span>
+      </div>
+      <hr class="border-t border-gray-300 my-4">
+  </div>
+
+
+  <div class="text-left flex-col justify-start">
+      <div class="flex">
+        <span class="flex-1 font-bold">Experience</span>
+        <span class="flex-1">{@job_offer.experience}</span>
+      </div>
+      <div class="flex">
+        <span class="flex-1 font-bold">Salary range</span>
+        <span class="flex-1">{@job_offer.salary_range}</span>
+      </div>
+      <div class="flex">
+        <span class="flex-1 font-bold">Requested salary</span>
+        <span class="flex-1">{@job_offer.requested_salary}</span>
+      </div>
+      <hr class="border-t border-gray-300 my-4">
+  </div>
+
+  <div class="text-left flex-col justify-start">
+      <div class="flex">
+        <span class="flex-1 font-bold">Response date</span>
+        <span class="flex-1">{@job_offer.response_date}</span>
+      </div>
+      <div class="flex">
+        <span class="flex-1 font-bold">Response</span>
+        <span class="flex-1">{@job_offer.response}</span>
+      </div>
+      <hr class="border-t border-gray-300 my-4">
+  </div>
+
+  <div class="mt-10">
+    <b>Observation</b>
+    <span>{@job_offer.observation}</span>
+  </div>
+
 </Layouts.app>
