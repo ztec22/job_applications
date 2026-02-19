@@ -56,8 +56,14 @@ defmodule JobApplicationsWeb.JobOfferController do
         value -> String.to_integer(value)
       end
 
-    {job_offers, pages} = JobOffers.list_job_offers(page)
-    render(conn, :index, job_offers: job_offers, pages: pages , current_page: page)
+    filter =
+      params
+      |> Map.get("filter", %{})
+      |> Enum.reject(fn {_k, v} -> v in ["", nil] end)
+      |> Map.new()
+
+    {job_offers, count, pages} = JobOffers.list_job_offers(page, filter)
+    render(conn, :index, filter: filter || %{}, job_offers: job_offers, count: count, pages: pages , current_page: page)
   end
 
   def new(conn, _params) do

@@ -17,19 +17,40 @@ defmodule JobApplications.JobOffers do
       [%JobOffer{}, ...]
 
   """
-  def list_job_offers(page \\ 1, page_size \\ 10) do
+  def list_job_offers(page \\ 1, filter) do
+    page_size = 10
     offset = (page - 1) * page_size
 
-    count = Repo.aggregate(JobOffer, :count, :id)
+    count = Repo.aggregate(JobOffer |> where(^apply_filters(filter)), :count, :id)
     pages = div(count, page_size)
 
     job_offers = JobOffer
+      |> where(^apply_filters(filter))
       |> order_by(desc: :application_date)
       |> limit(^page_size)
       |> offset(^offset)
       |> Repo.all()
 
-    {job_offers, pages}
+    {job_offers, count, pages}
+  end
+
+  def apply_filters(params) do
+    Enum.reduce(params, dynamic(true), fn
+      {"keyword", value}, dynamic ->
+        dynamic([j], ^dynamic and (ilike(j.job_title, ^"%#{value}%") or ilike(j.job_description, ^"%#{value}%"))  )
+
+      {"company", value}, dynamic ->
+        dynamic([j], ^dynamic and ilike(j.company, ^"%#{value}%"))
+
+      {"working_model", value}, dynamic ->
+        dynamic([j], ^dynamic and ilike(j.working_model, ^"%#{value}%"))
+
+      {"status", value}, dynamic ->
+        dynamic([j], ^dynamic and ilike(j.status, ^"%#{value}%"))
+
+      {_, _}, dynamic ->
+        dynamic
+    end)
   end
 
   @doc """

@@ -1,6 +1,6 @@
 <Layouts.app flash={@flash}>
   <.header>
-    Listing Job offers (<%= length(@job_offers) %>)
+    Listing Job offers ({ @count })
     <.upload_file />
     <:actions>
       <.button href={~p"/job_offers/new"}>
@@ -12,6 +12,21 @@
     </:actions>
   </.header>
 
+
+  <div class="flex justify-start space-x-5">
+    <.form class="flex-col items-start" 
+      as={:filter} :let={f} for={@filter} method="get">
+    
+      <div class="flex space-x-5">
+        <.input label="Keyword" field={f[:keyword]} type="text" />
+        <.input label="Company" field={f[:company]} type="text" />
+        <.input label="Working model" field={f[:working_model]} type="select" options={["REMOTE": "Remoto", "HYBRID": "brido", UNKNOWN: "?"]} />
+         <.input label="Status" field={f[:status]} type="select" options={[UNKNOWN: "?", "APPLIED": "APPLIED", "PENDING": "PENDING", "REJECTED": "REJECTED", "GHOSTED": "GHOSTED", "INTERVIEW": "INTERVIEW", "OFFER": "OFFER"]} />
+      </div>
+      
+      <.button class="btn btn-primary btn-soft w-full"> <.icon name="hero-magnifying-glass" /> Search </.button>
+    </.form>
+  </div>
   
   <.table id="job_offers" rows={@job_offers} row_click={&JS.navigate(~p"/job_offers/#{&1}")}>
     <:col :let={job_offer} label="Application date">{job_offer.application_date}</:col>
@@ -33,9 +48,14 @@
   </.table>
 
   <div class="join w-full flex justify-center">
+    <%
+      values = for {k, v} <- @filter, v not in ["", nil], do: "filter["<> k <> "]=" <> v
+      filter_string =  Enum.join(values, "&")
+    %>
+    
     <%= for page <- 0..@pages do %>
       <a class={ "join-item btn  #{if page+1 == @current_page do "btn-active" end}"} 
-        href={"?page=#{page+1}"}>{page + 1}</a>
+        href={"?page=#{page+1}&"<>"#{filter_string}"} >{page + 1}</a>
     <% end %>
   </div>
 
