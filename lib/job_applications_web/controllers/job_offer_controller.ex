@@ -48,9 +48,16 @@ defmodule JobApplicationsWeb.JobOfferController do
     |> redirect(to: ~p"/job_offers")
   end
 
-  def index(conn, _params) do
-    job_offers = JobOffers.list_job_offers()
-    render(conn, :index, job_offers: job_offers)
+  def index(conn, params) do
+    page =
+      case params["page"] do
+        nil -> 1
+        "" -> 1
+        value -> String.to_integer(value)
+      end
+
+    {job_offers, pages} = JobOffers.list_job_offers(page)
+    render(conn, :index, job_offers: job_offers, pages: pages , current_page: page)
   end
 
   def new(conn, _params) do

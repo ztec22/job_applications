@@ -32,4 +32,13 @@
     </:action>
   </.table>
 
+  <div class="join w-full flex justify-center">
+    <%= for page <- 0..@pages do %>
+      <a class={ "join-item btn  #{if page+1 == @current_page do "btn-active" end}"} 
+        href={"?page=#{page+1}"}>{page + 1}</a>
+    <% end %>
+  </div>
+
+
+
 </Layouts.app>

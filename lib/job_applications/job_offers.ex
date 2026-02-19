@@ -17,8 +17,19 @@ defmodule JobApplications.JobOffers do
       [%JobOffer{}, ...]
 
   """
-  def list_job_offers do
-    Repo.all(from jf in JobOffer, order_by: [desc: jf.application_date])
+  def list_job_offers(page \\ 1, page_size \\ 10) do
+    offset = (page - 1) * page_size
+
+    count = Repo.aggregate(JobOffer, :count, :id)
+    pages = div(count, page_size)
+
+    job_offers = JobOffer
+      |> order_by(desc: :application_date)
+      |> limit(^page_size)
+      |> offset(^offset)
+      |> Repo.all()
+
+    {job_offers, pages}
   end
 
   @doc """
