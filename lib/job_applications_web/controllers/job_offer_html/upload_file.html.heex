@@ -1,4 +1,4 @@
-<.form class="mt-5" :let={f} for={%{}} action={~p"/upload_file"} multipart>
-  <.input field={f[:excel_file]} type="file" />
-  <.button>Load Excel file</.button>
+<.form class="mt-5 flex-col justify-start content-center" :let={f} for={%{}} action={~p"/upload_file"} multipart>
+  <.input class="file-input file-input-primary" field={f[:excel_file]} type="file" />
+  <.button type="submit">Load Excel file</.button>
 </.form>
