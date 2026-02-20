@@ -8,7 +8,7 @@
   <.input field={f[:experience]} type="text" label="Experience" />
   <.input field={f[:salary_range]} type="text" label="Salary range" />
   <.input field={f[:requested_salary]} type="text" label="Requested salary" />
-  <.input field={f[:status]} type="text" label="Status" />
+  <.input field={f[:status]} type="select" label="Status" options={[UNKNOWN: "?", "APPLIED": "APPLIED", "PENDING": "PENDING", "REJECTED": "REJECTED", "GHOSTED": "GHOSTED", "INTERVIEW": "INTERVIEW", "OFFER": "OFFER"]} />
   <.input field={f[:response_date]} type="date" label="Response date" />
   <.input field={f[:response]} type="text" label="Response" />
   <.input field={f[:observation]} type="text" label="Observation" />
