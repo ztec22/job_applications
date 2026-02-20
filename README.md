@@ -1,6 +1,6 @@
 # JobApplications
 
-Applicacion web **MVC** con **Elixir** y **Phoenix** para la gestión de solicitudes de ofertas de trabajo.
+Aplicación web **MVC** con **Elixir** y **Phoenix** para la gestión de solicitudes de ofertas de trabajo.
 
 
 ![preview](./preview.png)
