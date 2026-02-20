@@ -1,18 +1,15 @@
 # JobApplications
 
-To start your Phoenix server:
+Applicacion web **MVC** con **Elixir** y **Phoenix** para la gestión de solicitudes de ofertas de trabajo.
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+![preview](./preview.png)
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-## Learn more
+## Ejecutar entorno local
 
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+- Iniciar postgresql: `docker compose up -d`
+- Instalar dependencias: `mix deps.get`
+- Iniciar servidor phoenix: `mix phx.server`
+- Acceder a: [`localhost:4000`](http://localhost:4000)
+- Ejemplo de excel a cargar: `example.xlsx`
