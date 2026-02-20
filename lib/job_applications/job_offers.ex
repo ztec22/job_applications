@@ -18,7 +18,7 @@ defmodule JobApplications.JobOffers do
 
   """
   def list_job_offers(page \\ 1, filter) do
-    page_size = 10
+    page_size = 5
     offset = (page - 1) * page_size
 
     count = Repo.aggregate(JobOffer |> where(^apply_filters(filter)), :count, :id)

@@ -31,7 +31,8 @@ defmodule JobApplicationsWeb.JobOfferController do
         "observation" => ""
       }
 
-      if job_offer_params["application_date"] && job_offer_params["company"] && job_offer_params["job_title"] do
+      if job_offer_params["application_date"] != "" &&
+         job_offer_params["company"] != "" && job_offer_params["job_title"] != "" do
 
         case JobOffers.create_job_offer(job_offer_params) do
           {:error, %Ecto.Changeset{} = changeset} ->
