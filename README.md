@@ -2,9 +2,25 @@
 
 Aplicación web **MVC** con **Elixir** y **Phoenix** para la gestión de solicitudes de ofertas de trabajo.
 
-
 ![preview](./preview.png)
 
+## Tabla de base de datos: job_offers
+
+```
+    application_date: Fecha 
+    company: string 
+    job_title: string 
+    working_model: string 
+    job_description: string 
+    sector: string 
+    experience: string 
+    salary_range: string
+    requested_salary: integer 
+    status: string 
+    response_date: date 
+    response: string 
+    observation: string
+```
 
 ## Ejecutar entorno local
 
