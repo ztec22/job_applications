@@ -33,11 +33,19 @@ defmodule JobApplicationsWeb.JobOfferController do
   def upload_file(conn, params) do
 
     file = params["excel_file"]
-    JobOffers.load_excel(file)
 
-    conn
-      |> put_flash(:info, "Excel file loaded successfully.")
-      |> redirect(to: ~p"/job_offers")
+    if file == nil do
+      conn
+        |> put_flash(:error, "You need to upload a file")
+        |> redirect(to: ~p"/job_offers")
+    else
+      JobOffers.load_excel(file)
+
+      conn
+        |> put_flash(:info, "Excel file loaded successfully.")
+        |> redirect(to: ~p"/job_offers")
+    end
+
   end
 
   def index(conn, params) do
