@@ -140,4 +140,47 @@ defmodule JobApplications.JobOffers do
   def change_job_offer(%JobOffer{} = job_offer, attrs \\ %{}) do
     JobOffer.changeset(job_offer, attrs)
   end
+
+  @doc """
+    Reads the excel file and inserts records to the database
+  """
+  def load_excel(file) do
+    {:ok, package} = XlsxReader.open(file.path)
+
+    sheet_name = Enum.at(XlsxReader.sheet_names(package), 0)
+    {:ok, rows} = XlsxReader.sheet(package, sheet_name)
+
+    [_first | records] = rows
+
+    Enum.each(records, fn record ->
+      job_offer_params = %{
+        "application_date" => Enum.at(record, 0),
+        "company" => Enum.at(record, 2),
+        "job_title" => Enum.at(record, 3),
+        "working_model" => Enum.at(record, 4),
+        "sector" => Enum.at(record, 5),
+        "job_description" => Enum.at(record, 6),
+        "experience" => Enum.at(record, 7),
+        "salary_range" => "?",
+        "requested_salary" => Enum.at(record, 8),
+        "status" => "?",
+        "response_date" => nil,
+        "response" => Enum.at(record, 9),
+        "observation" => ""
+      }
+
+      if job_offer_params["application_date"] != "" &&
+         job_offer_params["company"] != "" && job_offer_params["job_title"] != "" do
+
+        case create_job_offer(job_offer_params) do
+          {:error, %Ecto.Changeset{} = changeset} ->
+            IO.puts("Invalid record #{changeset}")
+          _ -> nil
+        end
+      end
+
+
+    end)
+  end
+
 end
