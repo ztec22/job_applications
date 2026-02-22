@@ -22,7 +22,7 @@
     
       <div class="flex space-x-5">
         <.input label="Keyword" field={f[:keyword]} type="text" />
-        <.input label="Company" field={f[:company]} type="text" />
+        <.input label={"Company (#{length(@companies)})"} field={f[:company]} type="select" options={[ALL: ""] ++ @companies} />
         <.input label="Working model" field={f[:working_model]} type="select" options={[ALL: "", "REMOTE": "Remoto", "HYBRID": "brido", UNKNOWN: "?"]} />
         <.input label="Status" field={f[:status]} type="select" options={[ALL: "", UNKNOWN: "?", "APPLIED": "APPLIED", "PENDING": "PENDING", "REJECTED": "REJECTED", "GHOSTED": "GHOSTED", "INTERVIEW": "INTERVIEW", "OFFER": "OFFER"]} />
       </div>

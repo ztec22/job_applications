@@ -10,6 +10,16 @@ defmodule JobApplications.JobOffers do
   alias Elixlsx.{Sheet, Workbook}
 
   @doc """
+    List all companies in the job_offers.
+  """
+  def list_companies() do
+    JobOffer
+      |> select([j], j.company)
+      |> distinct(true)
+      |> Repo.all()
+  end
+
+  @doc """
     List all the job_offers.
   """
   def list_all_job_offers() do
@@ -29,7 +39,7 @@ defmodule JobApplications.JobOffers do
 
   """
   def list_job_offers(page \\ 1, filter) do
-    page_size = 5
+    page_size = 8
     offset = (page - 1) * page_size
 
     count = Repo.aggregate(JobOffer |> where(^apply_filters(filter)), :count, :id)
@@ -201,6 +211,7 @@ defmodule JobApplications.JobOffers do
 
       [
         Date.to_string(offer.application_date),
+        Calendar.strftime(offer.application_date, "%A, %d %B %Y"),
         offer.company,
         offer.job_title,
         offer.working_model,
@@ -216,7 +227,7 @@ defmodule JobApplications.JobOffers do
       ]
     end
 
-    header = ["Application Date","Company","Job title",
+    header = ["Application Date", "Date", "Company","Job title",
       "Working model","Sector","Job description","Experience",
       "Salary range","Requested salary", "Status", "Response date",
       "Response", "Observation"
@@ -227,7 +238,7 @@ defmodule JobApplications.JobOffers do
     sheet1 = %Sheet{
       name: "Sheet 1",
       rows: records,
-      col_widths: Enum.reduce(1..length(header), %{}, fn i, acc -> Map.put(acc, i, 20) end)
+      col_widths: Enum.reduce(1..length(header), %{}, fn i, acc -> Map.put(acc, i, 25) end)
     }
 
     workbook = %Workbook{sheets: [sheet1]}

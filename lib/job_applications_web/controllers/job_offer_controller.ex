@@ -13,7 +13,8 @@ defmodule JobApplicationsWeb.JobOfferController do
         |> put_flash(:info, "No records found")
         |> redirect(to: ~p"/job_offers")
     else
-      filename = "job_offers.xlsx"
+      date = Date.to_string(Date.utc_today())
+      filename = "job_offers_#{date}.xlsx"
       {:ok, {_, content}} = JobOffers.create_excel(filename, job_offers)
 
       conn
@@ -63,7 +64,14 @@ defmodule JobApplicationsWeb.JobOfferController do
       |> Map.new()
 
     {job_offers, count, pages} = JobOffers.list_job_offers(page, filter)
-    render(conn, :index, filter: filter || %{}, job_offers: job_offers, count: count, pages: pages , current_page: page)
+    companies = JobOffers.list_companies()
+
+    render(conn, :index,
+      filter: filter || %{},
+      job_offers: job_offers,
+      count: count, pages: pages , current_page: page,
+      companies: companies
+    )
   end
 
   def new(conn, _params) do
