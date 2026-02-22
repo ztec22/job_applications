@@ -66,7 +66,8 @@ defmodule JobApplications.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:xlsx_reader, "~> 0.8.9"}
+      {:xlsx_reader, "~> 0.8.9"},
+      {:elixlsx, "~> 0.6.0"}
     ]
   end
 

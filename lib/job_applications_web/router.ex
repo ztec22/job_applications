@@ -19,6 +19,7 @@ defmodule JobApplicationsWeb.Router do
 
     get "/", JobOfferController, :index
     post "/upload_file", JobOfferController, :upload_file
+    get "/download_file", JobOfferController, :download_file
     delete "/job_offers", JobOfferController, :delete_all
     resources "/job_offers", JobOfferController
   end

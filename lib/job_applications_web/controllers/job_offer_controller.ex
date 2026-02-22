@@ -4,6 +4,32 @@ defmodule JobApplicationsWeb.JobOfferController do
   alias JobApplications.JobOffers
   alias JobApplications.JobOffers.JobOffer
 
+
+  def download_file(conn, _params) do
+    job_offers = JobOffers.list_all_job_offers()
+
+    if Enum.empty?(job_offers) do
+      conn
+        |> put_flash(:info, "No records found")
+        |> redirect(to: ~p"/job_offers")
+    else
+      filename = "job_offers.xlsx"
+      {:ok, {_, content}} = JobOffers.create_excel(filename, job_offers)
+
+      conn
+        |> send_download(
+            {:binary, content},
+            [
+              filename: filename,
+              content_type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            ]
+          )
+
+        #
+    end
+
+  end
+
   def upload_file(conn, params) do
 
     file = params["excel_file"]

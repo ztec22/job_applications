@@ -7,6 +7,17 @@ defmodule JobApplications.JobOffers do
   alias JobApplications.Repo
 
   alias JobApplications.JobOffers.JobOffer
+  alias Elixlsx.{Sheet, Workbook}
+
+  @doc """
+    List all the job_offers.
+  """
+  def list_all_job_offers() do
+    JobOffer
+      |> order_by(asc: :application_date)
+      |> Repo.all()
+  end
+
 
   @doc """
   Returns the list of job_offers.
@@ -181,6 +192,47 @@ defmodule JobApplications.JobOffers do
 
 
     end)
+  end
+
+  def create_excel(filename, job_offers) do
+    records = for offer <- job_offers do
+
+      response_date = if offer.response_date, do: Date.to_string(offer.response_date), else: ""
+
+      [
+        Date.to_string(offer.application_date),
+        offer.company,
+        offer.job_title,
+        offer.working_model,
+        offer.sector,
+        offer.job_description,
+        offer.experience,
+        offer.salary_range,
+        offer.requested_salary,
+        offer.status,
+        response_date,
+        offer.response,
+        offer.observation
+      ]
+    end
+
+    header = ["Application Date","Company","Job title",
+      "Working model","Sector","Job description","Experience",
+      "Salary range","Requested salary", "Status", "Response date",
+      "Response", "Observation"
+    ]
+
+    records = [header | records]
+
+    sheet1 = %Sheet{
+      name: "Sheet 1",
+      rows: records,
+      col_widths: Enum.reduce(1..length(header), %{}, fn i, acc -> Map.put(acc, i, 20) end)
+    }
+
+    workbook = %Workbook{sheets: [sheet1]}
+
+    Elixlsx.write_to_memory(workbook, filename)
   end
 
 end
