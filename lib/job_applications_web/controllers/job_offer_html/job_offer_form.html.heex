@@ -1,17 +1,36 @@
 <.form :let={f} for={@changeset} action={@action}>
-  <.input field={f[:application_date]} type="date" label="Application date" />
-  <.input field={f[:company]} type="text" label="Company" />
-  <.input field={f[:job_title]} type="text" label="Job title" />
-  <.input field={f[:working_model]} type="text" label="Working model" />
+
+  <div class="flex space-x-10">
+    <.input field={f[:application_date]} type="date" label="Application date" />
+    <.input field={f[:company]} type="text" label="Company" />
+    <.input field={f[:working_model]} type="select" label="Working model" options={["REMOTE": "Remoto", "HYBRID": "Hibrido"]} />
+    <.input field={f[:status]} type="select" label="Status" options={["APPLIED": "APPLIED", "PENDING": "PENDING", "REJECTED": "REJECTED", "NO RESPONSE": "NO_RESPONSE", "GHOSTED": "GHOSTED", "INTERVIEW": "INTERVIEW", "OFFER": "OFFER"]} />
+  </div>
+  
+  <div class="flex space-x-10">
+    <div class="w-150">
+      <.input field={f[:job_title]} type="text" label="Job title" />
+    </div>
+    <div class="w-100">
+      <.input field={f[:sector]} type="text" label="Sector" />
+    </div>
+  </div>
+  
   <.input field={f[:job_description]} type="text" label="Job description" />
-  <.input field={f[:sector]} type="text" label="Sector" />
-  <.input field={f[:experience]} type="text" label="Experience" />
-  <.input field={f[:salary_range]} type="text" label="Salary range" />
-  <.input field={f[:requested_salary]} type="text" label="Requested salary" />
-  <.input field={f[:status]} type="select" label="Status" options={[UNKNOWN: "?", "APPLIED": "APPLIED", "PENDING": "PENDING", "REJECTED": "REJECTED", "GHOSTED": "GHOSTED", "INTERVIEW": "INTERVIEW", "OFFER": "OFFER"]} />
-  <.input field={f[:response_date]} type="date" label="Response date" />
+  
+  <div class="flex space-x-10">
+    <.input field={f[:experience]} type="text" label="Experience" />
+    <.input field={f[:salary_range]} type="text" label="Salary range" />
+    <.input field={f[:requested_salary]} type="text" label="Requested salary" />
+  </div>
+  
+  <div class="flex">
+    <.input field={f[:response_date]} type="date" label="Response date" />
+  </div>
+
   <.input field={f[:response]} type="text" label="Response" />
-  <.input field={f[:observation]} type="text" label="Observation" />
+  <.input field={f[:observation]} type="textarea" label="Observation" />
+  
   <footer>
     <.button variant="primary">Save Job offer</.button>
     <.button :if={@return_to} href={@return_to}>Cancel</.button>
