@@ -184,7 +184,7 @@ defmodule JobApplications.JobOffers do
         "experience" => Enum.at(record, 7),
         "salary_range" => "?",
         "requested_salary" => Enum.at(record, 8),
-        "status" => "?",
+        "status" => "APPLIED",
         "response_date" => nil,
         "response" => Enum.at(record, 9),
         "observation" => ""
