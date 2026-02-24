@@ -16,6 +16,7 @@ defmodule JobApplications.JobOffers do
     JobOffer
       |> select([j], j.company)
       |> distinct(true)
+      |> order_by(asc: :company)
       |> Repo.all()
   end
 
