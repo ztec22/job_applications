@@ -21,6 +21,36 @@ defmodule JobApplications.JobOffers do
   end
 
   @doc """
+    Count all remote job_offers.
+  """
+  def count_remote_job_offers() do
+    Repo.aggregate(JobOffer |> where([j], ilike(j.working_model, ^"%Remot%") ), :count, :id)
+  end
+
+
+  @doc """
+    Group all job_offers by status.
+  """
+  def group_job_offers_per_status() do
+    JobOffer
+      |> group_by([j], j.status)
+      |> select([j], %{status: j.status, count: count(j.id)})
+      |> order_by(desc: :count)
+      |> Repo.all()
+  end
+
+  @doc """
+    Group all job_offers by company.
+  """
+  def group_job_offers_per_company() do
+    JobOffer
+      |> group_by([j], j.company)
+      |> select([j], %{company: j.company, count: count(j.id)})
+      |> order_by(desc: :count)
+      |> Repo.all()
+  end
+
+  @doc """
     List all the job_offers.
   """
   def list_all_job_offers() do

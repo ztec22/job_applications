@@ -1,6 +1,7 @@
 <Layouts.app flash={@flash}>
   <.header>
     Listing Job offers ({ @count })
+    <.button navigate={~p"/stats"}>Stats</.button>
     <.upload_file />
     <:actions>
       <.button href={~p"/job_offers/new"}>

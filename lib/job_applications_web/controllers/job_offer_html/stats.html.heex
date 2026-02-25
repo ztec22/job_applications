@@ -1,0 +1,83 @@
+<Layouts.app flash={@flash}>
+  <.header>
+    Job Stats
+    <:actions>
+      <.button navigate={~p"/job_offers"}>
+        <.icon name="hero-arrow-left" />
+      </.button>
+    </:actions>
+  </.header>
+
+  
+  
+  <div class="flex space-x-10 justify-between">
+    <div>
+      <div class="font-bold">Total companies</div>
+      <div>{@companies}</div>
+    </div>
+    <div>
+      <div class="font-bold">Total job applications</div>
+      <div>{@job_offers}</div>
+    </div>
+    <div>
+      <div class="font-bold">Remote</div>
+      <div>{"#{@remote} - #{div(@remote * 100, @job_offers)}%"}</div>
+    </div>
+    <div>
+      <div class="font-bold">Hybrid</div>
+      <div>{"#{@hybrid} - #{div(@hybrid * 100, @job_offers)}%"}</div>
+    </div>
+    
+  </div>
+  
+  <hr class="border-t border-gray-300 my-4">
+
+  <div class="flex gap-6 items-start">
+    <table class="w-1/2 border-collapse border border-gray-300">
+      <thead>
+        <tr>
+          <th class="w-40 border border-gray-300 px-2 py-2">Status</th>
+          <th class="border border-gray-300 px-2 py-2">Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for row <- @status_count do %>
+          <tr>
+            <td class="w-40 border border-gray-300 px-2 py-2">
+              <%= row.status %>
+            </td>
+            <td class="border border-gray-300 px-2 py-2">
+              <%= row.count %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+
+    <table class="w-1/2 border-collapse border border-gray-300">
+      <thead>
+        <tr>
+          <th class="w-40 border border-gray-300 px-2 py-2">Company</th>
+          <th class="border border-gray-300 px-2 py-2">Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for row <- @company_count do %>
+          <tr>
+            <td class="w-40 border border-gray-300 px-2 py-2">
+              <%= row.company %>
+            </td>
+            <td class="border border-gray-300 px-2 py-2">
+              <%= row.count %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="border-t border-gray-300 my-4">
+
+
+</Layouts.app>

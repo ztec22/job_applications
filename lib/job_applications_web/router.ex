@@ -22,6 +22,7 @@ defmodule JobApplicationsWeb.Router do
     get "/download_file", JobOfferController, :download_file
     delete "/job_offers", JobOfferController, :delete_all
     resources "/job_offers", JobOfferController
+    get "/stats", JobOfferController, :stats
   end
 
   # Other scopes may use custom stacks.

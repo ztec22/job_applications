@@ -5,6 +5,27 @@ defmodule JobApplicationsWeb.JobOfferController do
   alias JobApplications.JobOffers.JobOffer
 
 
+  def stats(conn, _params) do
+
+    job_offers = JobOffers.list_all_job_offers()
+    companies = JobOffers.list_companies()
+
+    job_offers_count = length(job_offers)
+    remote_count = JobOffers.count_remote_job_offers()
+    hybrid_count = job_offers_count - remote_count
+    status_count = JobOffers.group_job_offers_per_status()
+    company_count = JobOffers.group_job_offers_per_company()
+
+    render(conn, :stats,
+      job_offers: job_offers_count,
+      companies: length(companies),
+      remote: remote_count,
+      hybrid: hybrid_count,
+      status_count: status_count,
+      company_count: company_count
+    )
+  end
+
   def download_file(conn, _params) do
     job_offers = JobOffers.list_all_job_offers()
 
