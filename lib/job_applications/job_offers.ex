@@ -51,6 +51,46 @@ defmodule JobApplications.JobOffers do
   end
 
   @doc """
+    Group all job_offers by months.
+  """
+  def group_job_offers_per_month() do
+    JobOffer
+      |> group_by([j], fragment("TO_CHAR(DATE_TRUNC('month', ?), 'YYYY-MM')", j.application_date))
+      |> select([j], %{application_date: fragment("TO_CHAR(DATE_TRUNC('month', ?), 'YYYY-MM')", j.application_date), count: count(j.id)})
+      |> order_by([j], [desc: fragment("TO_CHAR(DATE_TRUNC('month', ?), 'YYYY-MM')", j.application_date)])
+      |> Repo.all()
+  end
+
+  @doc """
+    Group all job_offers weekly.
+  """
+  def group_job_offers_weekly() do
+    JobOffer
+      |> group_by([j], [
+          fragment("TO_CHAR(DATE_TRUNC('month', ?), 'YYYY-MM')", j.application_date),
+          fragment("TO_CHAR(DATE_TRUNC('week', ?), 'DD')", j.application_date)
+        ]
+      )
+      |> select([j], [
+          month: fragment("TO_CHAR(DATE_TRUNC('month', ?), 'YYYY-MM')", j.application_date),
+          week: fragment("TO_CHAR(DATE_TRUNC('week', ?), 'DD')", j.application_date),
+          count: count(j.id)
+        ]
+      )
+      |> order_by([j], [
+          asc: fragment("TO_CHAR(DATE_TRUNC('month', ?), 'YYYY-MM')", j.application_date),
+          asc: fragment("TO_CHAR(DATE_TRUNC('week', ?), 'DD')", j.application_date)
+        ]
+      )
+      |> Repo.all()
+      |> Enum.group_by(fn row -> row[:month] end)
+      |> Enum.map(fn {month, rows} ->
+        %{month: month, weeks: Enum.map(rows, fn row -> %{week: row[:week], count: row[:count]} end)}
+      end)
+      |> Enum.reverse()
+  end
+
+  @doc """
     List all the job_offers.
   """
   def list_all_job_offers() do

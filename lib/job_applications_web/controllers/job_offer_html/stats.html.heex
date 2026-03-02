@@ -33,7 +33,7 @@
   <hr class="border-t border-gray-300 my-4">
 
   <div class="flex gap-6 items-start">
-    <table class="w-1/2 border-collapse border border-gray-300">
+    <table class="w-1/4 border-collapse border border-gray-300">
       <thead>
         <tr>
           <th class="w-40 border border-gray-300 px-2 py-2">Status</th>
@@ -54,19 +54,18 @@
       </tbody>
     </table>
 
-
-    <table class="w-1/2 border-collapse border border-gray-300">
+    <table class="w-1/4 border-collapse border border-gray-300">
       <thead>
         <tr>
-          <th class="w-40 border border-gray-300 px-2 py-2">Company</th>
-          <th class="border border-gray-300 px-2 py-2">Count</th>
+          <th class="w-40 border border-gray-300 px-2 py-2">Monthly</th>
+          <th class="border border-gray-300 px-2 py-2">Applications</th>
         </tr>
       </thead>
       <tbody>
-        <%= for row <- @company_count do %>
+        <%= for row <- @monthly_count do %>
           <tr>
             <td class="w-40 border border-gray-300 px-2 py-2">
-              <%= row.company %>
+              <%= row.application_date %>
             </td>
             <td class="border border-gray-300 px-2 py-2">
               <%= row.count %>
@@ -75,9 +74,60 @@
         <% end %>
       </tbody>
     </table>
+
+    <table class="w-1/2 border-collapse border border-gray-300">
+      <thead>
+        <tr>
+          <th class="border border-gray-300 px-2 py-2">Month</th>
+          <th class="border border-gray-300 px-2 py-2">Week</th>
+          <th class="border border-gray-300 px-2 py-2">Applications</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for month <- @weekly_count do %>
+          <%= for {week, index} <- Enum.with_index(month.weeks) do %>
+          <tr>
+            <td class="border border-gray-300 px-2 py-2">
+              <%= if index == 0 do %>
+                <%= month.month %>
+              <% end %>
+            </td>
+            <td class="border border-gray-300 px-2 py-2">
+              <%= week.week %>
+            </td>
+            <td class="border border-gray-300 px-2 py-2">
+              <%= week.count %>
+            </td>
+          </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
   </div>
+    
 
   <hr class="border-t border-gray-300 my-4">
 
+  <table class="w-1/2 border-collapse border border-gray-300">
+    <thead>
+      <tr>
+        <th class="w-40 border border-gray-300 px-2 py-2">Company</th>
+        <th class="border border-gray-300 px-2 py-2">Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for row <- @company_count do %>
+        <tr>
+          <td class="w-40 border border-gray-300 px-2 py-2">
+            <%= row.company %>
+          </td>
+          <td class="border border-gray-300 px-2 py-2">
+            <%= row.count %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
 
 </Layouts.app>

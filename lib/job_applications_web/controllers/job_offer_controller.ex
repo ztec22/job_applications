@@ -15,6 +15,8 @@ defmodule JobApplicationsWeb.JobOfferController do
     hybrid_count = job_offers_count - remote_count
     status_count = JobOffers.group_job_offers_per_status()
     company_count = JobOffers.group_job_offers_per_company()
+    monthly_count = JobOffers.group_job_offers_per_month()
+    weekly_count = JobOffers.group_job_offers_weekly()
 
     render(conn, :stats,
       job_offers: job_offers_count,
@@ -22,7 +24,9 @@ defmodule JobApplicationsWeb.JobOfferController do
       remote: remote_count,
       hybrid: hybrid_count,
       status_count: status_count,
-      company_count: company_count
+      company_count: company_count,
+      monthly_count: monthly_count,
+      weekly_count: weekly_count
     )
   end
 
