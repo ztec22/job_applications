@@ -114,7 +114,7 @@ defmodule JobApplications.JobOffers do
     offset = (page - 1) * page_size
 
     count = Repo.aggregate(JobOffer |> where(^apply_filters(filter)), :count, :id)
-    pages = div(count, page_size)
+    pages = Float.ceil(count / page_size) |> trunc()
 
     job_offers = JobOffer
       |> where(^apply_filters(filter))
