@@ -57,10 +57,26 @@
       filter_string =  Enum.join(values, "&")
     %>
     
-    <%= for page <- 0..@pages do %>
-      <a class={ "join-item btn  #{if page+1 == @current_page do "btn-active" end}"} 
-        href={"?page=#{page+1}&"<>"#{filter_string}"} >{page + 1}</a>
+    <a class="join-item btn" disabled={if @current_page == 1 do true else false end}
+      href={"?page=#{@current_page - 1}&"<>"#{filter_string}"} >Prev</a>
+
+    <%= for page <- min(@current_page, max(1, @current_page - 2))..min(@pages - 1, @current_page + 2) do %>
+      <a class={ "join-item btn  #{if page == @current_page do "btn-active" end}"} 
+        href={"?page=#{page}&"<>"#{filter_string}"} >{page}</a>
     <% end %>
+
+    <%= if @current_page >= max(@current_page, @pages - 3) and @current_page <= @pages do %>
+      <a class={ "join-item btn  #{if @current_page == @pages do "btn-active" end}"} 
+        href={"?page=#{@pages}&"<>"#{filter_string}"} >{@pages}</a>
+    <%else %>
+      <a class="join-item btn">...</a>
+      <a class={ "join-item btn  #{if @current_page == @pages do "btn-active" end}"} 
+      href={"?page=#{@pages}&"<>"#{filter_string}"} >{@pages}</a>
+    <%end %>
+    
+    <a class="join-item btn" disabled={if @current_page == @pages do true else false end}
+      href={"?page=#{@current_page + 1}&"<>"#{filter_string}"} >Next</a>
+
   </div>
 
 
