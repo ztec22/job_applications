@@ -253,12 +253,12 @@ defmodule JobApplications.JobOffers do
         "sector" => Enum.at(record, 5),
         "job_description" => Enum.at(record, 6),
         "experience" => Enum.at(record, 7),
-        "salary_range" => "?",
-        "requested_salary" => Enum.at(record, 8),
-        "status" => "APPLIED",
-        "response_date" => nil,
-        "response" => Enum.at(record, 9),
-        "observation" => ""
+        "salary_range" => Enum.at(record, 8),
+        "requested_salary" => Enum.at(record, 9),
+        "status" => Enum.at(record, 10),
+        "response_date" => Enum.at(record, 11),
+        "response" => Enum.at(record, 12),
+        "observation" => Enum.at(record, 13)
       }
 
       if job_offer_params["application_date"] != "" &&
