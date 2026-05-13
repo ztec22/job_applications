@@ -12,7 +12,7 @@ defmodule JobApplications.JobOffersTest do
 
     test "list_job_offers/0 returns all job_offers" do
       job_offer = job_offer_fixture()
-      assert JobOffers.list_job_offers() == [job_offer]
+      assert JobOffers.list_job_offers(1, Map.new()) == {[job_offer], 1, 1}
     end
 
     test "get_job_offer!/1 returns the job_offer with given id" do
