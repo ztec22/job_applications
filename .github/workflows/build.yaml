@@ -7,6 +7,10 @@ on:
 permissions:
   contents: read
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.actor }}/job-applications:latest
+
 jobs:
   container-job:
     runs-on: ubuntu-latest
@@ -34,9 +38,19 @@ jobs:
         path: deps
         key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-mix-
+        
     - name: Install dependencies
       run: mix deps.get
+      
     - name: Run tests
       run: mix test
       env:
         POSTGRES_HOST: postgres
+        
+    - name: Login container registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+    
+    - name: Build and Push Docker image
+      run: |
+        docker build . -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
