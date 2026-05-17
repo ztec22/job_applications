@@ -16,7 +16,7 @@ env:
 jobs:
   build-job:
     runs-on: ubuntu-22.04
-    container: ubuntu:22.04
+    container: elixir:1.17.3
    
     services:
       postgres:
