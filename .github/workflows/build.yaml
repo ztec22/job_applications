@@ -14,7 +14,7 @@ env:
 jobs:
   container-job:
     runs-on: ubuntu-latest
-    container: hexpm/elixir:1.11-erlang-24.3.4.9-ubuntu-jammy-20260509
+    container: cimg/elixir:1.19-erlang-27.2.2
    
     services:
       postgres:
