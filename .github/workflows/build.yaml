@@ -49,6 +49,9 @@ jobs:
 #     run: mix test
 #     env:
 #       POSTGRES_HOST: postgres
+
+    - name: Generate release build
+      run: mix phx.gen.release
       
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
