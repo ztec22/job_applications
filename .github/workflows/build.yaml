@@ -17,9 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: elixir:1.17.3
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-      options: --user root
    
     services:
       postgres:
@@ -35,6 +32,7 @@ jobs:
           --health-retries 5
 
     steps:
+      
     - uses: actions/checkout@v4
     
     - name: Restore dependencies cache
@@ -51,12 +49,27 @@ jobs:
       run: mix test
       env:
         POSTGRES_HOST: postgres
-            
-    - name: Login container registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
     - name: Create Dockerfile
       run: mix phx.gen.release --docker
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts
+    
+  docker-build-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+    - name: Download build assets
+      uses: actions/download-artifact@v4
+      with:
+        name: build-artifacts
+        
+    - name: Login container registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
       
     - name: Build and Push Docker image
       run: |
