@@ -11,6 +11,7 @@ permissions:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.actor }}/job-applications:latest
+  ImageOS: ubuntu22
 
 jobs:
   build-job:
@@ -19,7 +20,7 @@ jobs:
    
     services:
       postgres:
-        image: postgres
+        image: postgres:17
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
