@@ -59,6 +59,7 @@ jobs:
         name: build-artifacts
     
   docker-build-job:
+    needs: build-job
     runs-on: ubuntu-latest
 
     steps:
