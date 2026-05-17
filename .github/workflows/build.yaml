@@ -43,7 +43,7 @@ jobs:
       run: mix local.hex --force
       
     - name: Install git
-      run: apt-get install -y git
+      run: apt-get update && apt-get install -y git
       
     - name: Install dependencies
       run: mix deps.get
