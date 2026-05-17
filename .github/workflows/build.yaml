@@ -14,7 +14,7 @@ env:
 jobs:
   container-job:
     runs-on: ubuntu-latest
-    container: elixir:1.17.3
+    container: hexpm/elixir:1.11-erlang-24.3.4.9-ubuntu-jammy-20260509
    
     services:
       postgres:
@@ -49,7 +49,10 @@ jobs:
         
     - name: Login container registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
-    
+
+    - name: Create Dockerfile
+      run: mix phx.gen.release --docker
+      
     - name: Build and Push Docker image
       run: |
         docker build . -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
