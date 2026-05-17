@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     container: 
       image: elixir:1.17.3
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
       options: --user root
    
     services:
@@ -49,9 +51,6 @@ jobs:
       run: mix test
       env:
         POSTGRES_HOST: postgres
-
-    - name: Set up Docker
-      uses: docker/setup-docker-action@v5
             
     - name: Login container registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
