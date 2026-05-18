@@ -9,6 +9,8 @@ Aplicación web **MVC** con **Elixir** y **Phoenix** para la gestión de solicit
 - Elixir 1.17.3
 - Phoenix Framework 1.8.3
 - Base de datos: PostgreSQL
+- Docker & Docker Compose
+- CI/CD con Github Actions
 
 ## Tabla de base de datos: job_offers
 
