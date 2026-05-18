@@ -32,6 +32,7 @@ Aplicación web **MVC** con **Elixir** y **Phoenix** para la gestión de solicit
 
 - Iniciar postgresql: `docker compose up -d`
 - Instalar dependencias: `mix deps.get`
+- Ejecutar migraciones: `mix ecto.migrate`
 - Iniciar servidor phoenix: `mix phx.server`
 - Acceder a: [`localhost:4000`](http://localhost:4000)
 - Ejemplo de excel a cargar: `example.xlsx`

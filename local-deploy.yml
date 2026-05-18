@@ -19,7 +19,7 @@ services:
       timeout: 10s
 
   job-applications:
-      image: job-applications:latest
+      image: ghcr.io/ztec22/job-applications:latest
       ports:
         - "4000:4000"
       environment:
