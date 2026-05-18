@@ -4,6 +4,12 @@ Aplicación web **MVC** con **Elixir** y **Phoenix** para la gestión de solicit
 
 ![preview](./preview.png)
 
+## Tecnologías
+
+- Elixir 1.17.3
+- Phoenix Framework 1.8.3
+- Base de datos: PostgreSQL
+
 ## Tabla de base de datos: job_offers
 
 ```
@@ -22,10 +28,18 @@ Aplicación web **MVC** con **Elixir** y **Phoenix** para la gestión de solicit
     observation: string
 ```
 
-## Ejecutar entorno local
+## Desarrollo entorno local
 
 - Iniciar postgresql: `docker compose up -d`
 - Instalar dependencias: `mix deps.get`
 - Iniciar servidor phoenix: `mix phx.server`
 - Acceder a: [`localhost:4000`](http://localhost:4000)
 - Ejemplo de excel a cargar: `example.xlsx`
+
+## Ejecutar entorno local
+
+- Iniciar postgresql y job-applications: 
+```
+docker compose -f local-deploy.yml up -d
+```
+- Acceder a: [`localhost:4000`](http://localhost:4000)
