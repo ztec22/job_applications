@@ -3,6 +3,11 @@ name: Elixir CI
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - 'README.md'
+      - 'preview.png'
+      - 'example.xlsx'
+      - 'docker-compose.yml'
 
 permissions:
   contents: read
