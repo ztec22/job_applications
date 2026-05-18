@@ -8,6 +8,7 @@ on:
       - 'preview.png'
       - 'example.xlsx'
       - 'docker-compose.yml'
+      - 'local-deploy.yml'
 
 permissions:
   contents: read

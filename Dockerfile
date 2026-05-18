@@ -15,7 +15,7 @@ ARG ELIXIR_VERSION=1.18.4
 ARG OTP_VERSION=27.3.4.3
 ARG DEBIAN_VERSION=trixie-20250908-slim
 
-ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
+ARG BUILDER_IMAGE="docker.io/hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 
 FROM ${BUILDER_IMAGE} AS builder
@@ -63,7 +63,6 @@ RUN mix assets.deploy
 # Changes to config/runtime.exs don't require recompiling the code
 COPY config/runtime.exs config/
 
-COPY rel rel
 RUN mix release
 
 # start a new build stage so that the final image will only contain
@@ -87,6 +86,7 @@ RUN chown nobody /app
 
 # set runner ENV
 ENV MIX_ENV="prod"
+ENV PHX_SERVER=true
 
 # Only copy the final release from the build stage
 COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/job_applications ./
@@ -98,4 +98,5 @@ USER nobody
 # above and adding an entrypoint. See https://github.com/krallin/tini for details
 # ENTRYPOINT ["/tini", "--"]
 
-CMD ["/app/bin/server"]
+#Run migrations and start databse
+CMD ["/bin/bash", "-c", "/app/bin/job_applications eval JobApplications.Release.migrate; /app/bin/job_applications start"]
